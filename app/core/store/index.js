@@ -32,7 +32,7 @@ const finalCreateStore = compose(
 )(createStore)
 
 // persist stored state
-const persistState = WebStorage.getSessionItem(STATE_KEY) || {}
+const persistState = WebStorage.getLocalItem(STATE_KEY) || {}
 
 // expose create store method
 export const configureStore = (state = persistState) => {
@@ -42,8 +42,9 @@ export const configureStore = (state = persistState) => {
 
   // store state on change
   store.subscribe(() => {
-    WebStorage.setSessionItem(STATE_KEY, {
-      // ui: store.getState().get('ui'),
+    WebStorage.setLocalItem(STATE_KEY, {
+      gifted: store.getState().get('gifted'),
+      gifts: store.getState().get('gifts'),
     })
   })
 

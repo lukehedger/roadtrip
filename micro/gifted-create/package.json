@@ -1,0 +1,26 @@
+{
+  "name": "roadtrip-gifts-read",
+  "version": "1.0.0",
+  "description": "Roadtrip gifted create microservice",
+  "main": "index.js",
+  "engines": {
+    "node": "8.9.1",
+    "npm": "5.5.1"
+  },
+  "scripts": {
+    "deploy": "now -e NODE_ENV=production -e MONGO_URL=@mongo-roadtrip-prod && now alias `pbpaste` roadtrip-gifted-create",
+    "start": "micro-dev -p 7000",
+    "now-start": "micro -p $PORT"
+  },
+  "author": "Luke Hedger",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "micro": "^9.0.2",
+    "micro-cors": "0.0.4",
+    "mongodb": "^3.0.1"
+  },
+  "devDependencies": {
+    "micro-dev": "^2.1.2"
+  }
+}
