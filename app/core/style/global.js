@@ -1,7 +1,7 @@
 import { injectGlobal } from 'styled-components'
 import { normalize } from 'polished'
 
-import { theme } from 'core/style'
+import { animation, theme } from 'core/style'
 
 injectGlobal`
   ${normalize()}
@@ -14,10 +14,10 @@ injectGlobal`
   	box-sizing: border-box;
   }
 
-  html, body, #Root, #App {
+  html, body, #Root, #App, main {
     height: 100%;
     min-height: 100%;
-    font-family: 'Montserrat', helvetica, sans-serif;
+    font-family: helvetica, sans-serif;
   }
 
   body {
@@ -32,4 +32,16 @@ injectGlobal`
     color: ${theme.accent};
     text-decoration: none;
   }
+
+  #map {
+    width: 100%;
+    height: 100%;
+    outline: none;
+    z-index: 0;
+  }
+
+  .map-icon {
+    opacity: 0;
+		animation: ${animation.fadeIn} 0.3s cubic-bezier(0,0,.25,1) 1 forwards;
+	}
 `

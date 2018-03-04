@@ -1,3 +1,4 @@
+import * as animation from './animation'
 import theme from './theme'
 
-export { theme }
+export { animation, theme }

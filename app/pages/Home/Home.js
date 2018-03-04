@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import L from 'leaflet'
+import 'leaflet.polyline.snakeanim'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { createStructuredSelector } from 'reselect'
@@ -13,22 +15,68 @@ import {
 } from 'domains/gifts'
 // import * as Components from './components'
 
+const MapIcon = L.icon({
+  iconUrl: '/img/map-icon.svg',
+  iconSize: [18, 30],
+  iconAnchor: [9, 30],
+  className: 'map-icon',
+})
+
 class Home extends Component {
   componentDidMount() {
-    const { actions } = this.props
+    // const { actions } = this.props
+
+    // initialise the map
+    this.initMap()
 
     // fetch the gift list
-    return actions.readGifts()
+    // return actions.readGifts()
+  }
+
+  initMap = () => {
+    this.map = L.map('map', {
+      center: [36.295117, -119.699698],
+      // maxBounds: [[ 51.28, -0.489 ], [ 51.686, 0.236 ]],
+      zoom: 7,
+      zoomControl: false,
+    })
+
+    L.tileLayer(
+      'https://api.mapbox.com/styles/v1/shandyclub/cjdj4loktivcg2tmodt9q1fe9/tiles/256/{z}/{x}/{y}?access_token={accessToken}',
+      {
+        attribution:
+          'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+        id: 'shandyclub.1hme714m',
+        accessToken:
+          'pk.eyJ1Ijoic2hhbmR5Y2x1YiIsImEiOiJjamRqNGdlMWYwaG92MzJwazBtdnFoMDJ2In0.UU0UwgKichfmNoR4nEwM7Q',
+      }
+    ).addTo(this.map)
+
+    const route = L.featureGroup([
+      L.marker([37.766907, -122.427303], { icon: MapIcon }),
+      L.polyline([[37.766907, -122.427303], [37.286899, -121.876083]], {
+        color: '#F479B7',
+        snakingSpeed: 200,
+      }),
+      L.marker([37.286899, -121.876083], { icon: MapIcon }),
+      L.polyline([[37.286899, -121.876083], [36.768952, -119.808304]], {
+        color: '#F479B7',
+        snakingSpeed: 200,
+      }),
+      L.marker([36.768952, -119.808304], { icon: MapIcon }),
+    ])
+
+    route.addTo(this.map).snakeIn()
   }
 
   render() {
-    const { actions } = this.props
+    // const { actions } = this.props
 
     return (
-      <div>
-        <h1>Home</h1>
+      <div style={{ height: '100%', zIndex: 0, position: 'relative' }}>
+        <div id="map" />
 
-        <button
+        {/* <button
           onClick={() =>
             actions.createGifted({
               from: 1,
@@ -39,7 +87,7 @@ class Home extends Component {
           }
         >
           Bug a gift!
-        </button>
+        </button> */}
       </div>
     )
   }
