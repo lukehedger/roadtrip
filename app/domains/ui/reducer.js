@@ -5,6 +5,7 @@ import * as actions from './actionTypes'
 
 export const initialState = Immutable.fromJS({
   error: null,
+  isLoading: true,
   isRequesting: false,
 })
 

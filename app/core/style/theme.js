@@ -6,9 +6,14 @@
  * @type {Object}
  */
 const customTheme = {
-  accent: '#EF3581',
-  grey: '#979797',
-  primary: '#251E2F',
+  palette: {
+    green: '#4E9172',
+    grey: '#767C91',
+    orange: '#E57453',
+    peach: '#F9CDB1',
+    primary: '#000000',
+    yellow: '#F0E9D8',
+  },
 }
 
 export default customTheme

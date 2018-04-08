@@ -31,6 +31,8 @@ class Home extends Component {
 
     // fetch the gift list
     // return actions.readGifts()
+
+    // TODO: Once gifts fetched, update UI loading=false
   }
 
   initMap = () => {
@@ -71,6 +73,8 @@ class Home extends Component {
 
   render() {
     // const { actions } = this.props
+
+    // TODO: Only render map once gifts have been fetched
 
     return (
       <div style={{ height: '100%', zIndex: 0, position: 'relative' }}>

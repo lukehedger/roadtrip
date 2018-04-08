@@ -20,6 +20,15 @@ const getError = createSelector([getAll], state => {
 })
 
 /**
+ * Get application loading status
+ *
+ * @type {Boolean}
+ */
+const getIsLoading = createSelector([getAll], state => {
+  return state.get('isLoading')
+})
+
+/**
  * Get application network request status
  *
  * @type {Boolean}
@@ -30,5 +39,6 @@ const getIsRequesting = createSelector([getAll], state => {
 
 export default {
   error: getError,
+  isLoading: getIsLoading,
   isRequesting: getIsRequesting,
 }

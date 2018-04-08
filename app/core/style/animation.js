@@ -8,3 +8,21 @@ export const fadeIn = keyframes`
     opacity: 1;
   }
 `
+
+export const slideLeft = keyframes`
+  from {
+    transform: translate(140px, 10px);
+  }
+  to {
+    transform: translate(120px, 0px);
+  }
+`
+
+export const slideRight = keyframes`
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(8%);
+  }
+`

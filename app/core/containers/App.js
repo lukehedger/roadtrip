@@ -1,42 +1,81 @@
 import React, { Component } from 'react'
+import { Box, Header, Main, Position, theme, View } from 'jaak-primitives'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 import { ThemeProvider } from 'styled-components'
 
-// import { Link } from 'core/components'
-// import { routes } from 'core/routes'
-import { theme } from 'core/style'
+import { Fade, Loader } from 'core/components'
+import { BodyText, Box as BorderBox, HeaderText } from 'core/primitives'
+import { theme as customTheme } from 'core/style'
 import { selectors as UISelectors } from 'domains/ui'
 
 class App extends Component {
   render() {
-    const { children, error, isRequesting } = this.props
+    const { children, error, isLoading, isRequesting } = this.props
 
     return (
-      <ThemeProvider theme={theme}>
-        <div id="App">
-          <main>
-            <header style={{ position: 'absolute', width: '100%', zIndex: 1 }}>
-              {/* <Link to={routes.list.path}>List View</Link> */}
+      <ThemeProvider theme={theme(customTheme)}>
+        <View size={['100%', 'auto']}>
+          <Main>
+            <Header>
+              <Box>
+                {!isLoading && (
+                  <BorderBox borderColor="grey" borderWidth={[0, 0, '1px']}>
+                    <Box flexDirection="column" padding={['8px']}>
+                      <BodyText fontSize={1} padding={[0, 0, '8px']}>
+                        Gabrielle & Adrian
+                      </BodyText>
 
-              <h1
-                style={{
-                  fontFamily: "'Lily Script One'",
-                  margin: 0,
-                  textAlign: 'center',
-                }}
-              >
-                GxA
-              </h1>
+                      <BodyText color="grey">30-06-18</BodyText>
+                    </Box>
 
-              {isRequesting && <div>Loading</div>}
+                    <BorderBox
+                      align="center"
+                      borderWidth={[0, 0, 0, '1px']}
+                      flex="none"
+                      flexDirection="column"
+                      margin={['8px', 0]}
+                      padding={[0, '8px', 0]}
+                      size={['auto', '130px']}
+                    >
+                      <HeaderText
+                        fontStyle="italic"
+                        padding={[0, 0, '4px']}
+                        textAlign="right"
+                      >
+                        California
+                      </HeaderText>
 
-              {error && <div>{error.message}</div>}
-            </header>
+                      <HeaderText color="grey" textAlign="right">
+                        USA
+                      </HeaderText>
+                    </BorderBox>
+                  </BorderBox>
+                )}
+
+                <Box flex="none" size={['auto', '100%']}>
+                  {isRequesting && <div>Loading</div>}
+
+                  {error && <div>{error.message}</div>}
+                </Box>
+              </Box>
+            </Header>
+
+            <Position
+              position="absolute"
+              left={0}
+              size={['100%']}
+              top={0}
+              zIndex={1}
+            >
+              <Fade appear={true} duration={500} in={isLoading}>
+                <Loader />
+              </Fade>
+            </Position>
 
             {children}
-          </main>
-        </div>
+          </Main>
+        </View>
       </ThemeProvider>
     )
   }
@@ -45,6 +84,7 @@ class App extends Component {
 export default connect(
   createStructuredSelector({
     error: UISelectors.error,
+    isLoading: UISelectors.isLoading,
     isRequesting: UISelectors.isRequesting,
   })
 )(App)
