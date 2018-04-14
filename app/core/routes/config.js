@@ -7,8 +7,4 @@ export default {
     path: '/gift',
     params: ':id',
   },
-  list: {
-    path: '/list',
-    params: null,
-  },
 }

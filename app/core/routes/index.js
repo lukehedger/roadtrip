@@ -18,7 +18,5 @@ export default makeRouteConfig(
       path={`${routes.gift.path}/${routes.gift.params}`}
       Component={pages.Gift}
     />
-
-    <Route path={routes.list.path} Component={pages.List} />
   </Route>
 )
