@@ -1,4 +1,7 @@
 import { NODE_ENV } from 'core/constants'
+import * as map from './map'
+
+export { map }
 
 /**
  * Check for development mode

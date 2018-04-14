@@ -8,7 +8,7 @@
 const customTheme = {
   palette: {
     blue: '#3C8DE3',
-    green: '#4E9172',
+    green: '#12825C',
     grey: '#767C91',
     orange: '#E57453',
     peach: '#F9CDB1',

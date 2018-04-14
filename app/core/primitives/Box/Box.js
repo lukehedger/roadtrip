@@ -1,4 +1,5 @@
 import { Box as BoxPrimitive, types, util } from 'jaak-primitives'
+import styled from 'styled-components'
 
 // import { media } from 'core/style'
 
@@ -7,7 +8,7 @@ import { Box as BoxPrimitive, types, util } from 'jaak-primitives'
  * @desc Primitive styled-component 💅
  * @return {Function} React component
  */
-const Box = BoxPrimitive.extend`
+const Box = styled(BoxPrimitive)`
   ${util.border};
   ${'' /* ${media.sm`
     flex: 0 0 100%;

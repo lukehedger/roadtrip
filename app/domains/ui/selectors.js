@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect'
 
+import { selectors as Gifts } from 'domains/gifts'
 import { name } from './constants'
 
 /**
@@ -37,8 +38,45 @@ const getIsRequesting = createSelector([getAll], state => {
   return state.get('isRequesting')
 })
 
+/**
+ * Get side panel state
+ *
+ * @param  {Object}  state Redux state
+ * @param  {Object}  props Component props
+ * @return {Boolean}
+ */
+const getIsSidePanelOpen = (state, { routeParams }) => {
+  return Boolean(routeParams.gift)
+}
+
+/**
+ * Get selected gift ID from route param
+ *
+ * @param  {Object}  state Redux state
+ * @param  {Object}  props Component props
+ * @return {String}
+ */
+const getSelectedGiftId = (state, { routeParams }) => {
+  return routeParams.gift
+}
+
+/**
+ * Get selected gift object
+ *
+ * @return {Object}
+ */
+const getSelectedGift = createSelector(
+  [getSelectedGiftId, Gifts.gifts],
+  (id, gifts) => {
+    return gifts[id]
+  }
+)
+
 export default {
   error: getError,
   isLoading: getIsLoading,
   isRequesting: getIsRequesting,
+  isSidePanelOpen: getIsSidePanelOpen,
+  selectedGift: getSelectedGift,
+  selectedGiftId: getSelectedGiftId,
 }

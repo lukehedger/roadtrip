@@ -7,8 +7,11 @@ import { Record } from 'immutable'
  */
 const Gift = new Record({
   _id: '',
+  coords: [],
+  description: '',
   gifted: '',
   image: '',
+  order: 0,
   title: '',
   value: '',
 })

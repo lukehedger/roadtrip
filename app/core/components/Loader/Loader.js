@@ -15,7 +15,7 @@ const Loader = () => (
         backgroundSize="cover"
         margin={[0, 'auto']}
         size={['35px', '120px']}
-        src="./img/car.svg"
+        src="/img/car.svg"
       />
 
       <Sun size={['20px']} />

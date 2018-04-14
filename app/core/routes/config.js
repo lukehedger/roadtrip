@@ -1,7 +1,7 @@
 export default {
   home: {
     path: '/',
-    params: null,
+    params: ':gift?',
   },
   gift: {
     path: '/gift',

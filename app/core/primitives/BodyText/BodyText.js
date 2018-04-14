@@ -1,11 +1,12 @@
 import { Text } from 'jaak-primitives'
+import styled from 'styled-components'
 
 /**
  * @namespace BodyText
  * @desc Primitive styled-component 💅
  * @return {Function} React component
  */
-const BodyText = Text.extend``
+const BodyText = styled(Text)``
 
 /**
  * @name defaultProps
@@ -14,7 +15,7 @@ const BodyText = Text.extend``
  */
 BodyText.defaultProps = {
   fontFamily: "'Vidaloka', serif",
-  lineHeight: 1,
+  lineHeight: '1',
 }
 
 /**
