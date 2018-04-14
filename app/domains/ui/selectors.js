@@ -21,6 +21,17 @@ const getError = createSelector([getAll], state => {
 })
 
 /**
+ * Get gift form state
+ *
+ * @param  {Object}  state Redux state
+ * @param  {Object}  props Component props
+ * @return {Boolean}
+ */
+const getIsFormOpen = (state, { location }) => {
+  return location.query.gift
+}
+
+/**
  * Get application loading status
  *
  * @type {Boolean}
@@ -74,6 +85,7 @@ const getSelectedGift = createSelector(
 
 export default {
   error: getError,
+  isFormOpen: getIsFormOpen,
   isLoading: getIsLoading,
   isRequesting: getIsRequesting,
   isSidePanelOpen: getIsSidePanelOpen,

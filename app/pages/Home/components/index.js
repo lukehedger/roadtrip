@@ -1,3 +1,4 @@
 import Panel from './Panel'
+import Postcard from './Postcard'
 
-export { Panel }
+export { Panel, Postcard }

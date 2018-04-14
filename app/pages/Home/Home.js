@@ -46,6 +46,8 @@ class Home extends Component {
       selectedGiftId: prevSelectedGiftId,
     } = prevProps
 
+    console.log(selectedGiftId)
+
     // check if app has finished loading
     if (!isLoading && isLoading !== prevIsLoading) {
       // initialise the map
@@ -99,10 +101,18 @@ class Home extends Component {
     setTimeout(() => route.addTo(this.map).snakeIn(), MAP_ROUTE_DRAW_DELAY)
   }
 
-  onContributeClick = id => {
+  onContributeClick = () => {
     const { router } = this.context
+    const { location } = this.props
 
-    return router.push(`${routes.gift.path}/${id}`)
+    return router.push({ pathname: location.pathname, search: '?gift=true' })
+  }
+
+  onFormCloseClick = () => {
+    const { router } = this.context
+    const { location } = this.props
+
+    return router.push({ pathname: location.pathname, search: '' })
   }
 
   onGiftPrevClick = index => {
@@ -157,7 +167,7 @@ class Home extends Component {
   }
 
   render() {
-    const { isLoading, isSidePanelOpen, selectedGift } = this.props
+    const { isFormOpen, isLoading, isSidePanelOpen, selectedGift } = this.props
 
     return (
       <Position position="relative" size={['100%']} zIndex={2}>
@@ -186,6 +196,11 @@ class Home extends Component {
             />
           </Slide>
         </Position>
+
+        {!isLoading &&
+          isFormOpen && (
+            <Components.Postcard onCloseClick={this.onFormCloseClick} />
+          )}
       </Position>
     )
   }
@@ -198,6 +213,7 @@ Home.contextTypes = {
 export default connect(
   createStructuredSelector({
     gifted: GiftedSelectors.gifted,
+    isFormOpen: UISelectors.isFormOpen,
     isLoading: UISelectors.isLoading,
     isSidePanelOpen: UISelectors.isSidePanelOpen,
     selectedGift: UISelectors.selectedGift,

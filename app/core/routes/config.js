@@ -3,8 +3,4 @@ export default {
     path: '/',
     params: ':gift?',
   },
-  gift: {
-    path: '/gift',
-    params: ':id',
-  },
 }

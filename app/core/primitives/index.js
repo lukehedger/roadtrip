@@ -5,5 +5,6 @@ import HeaderText from './HeaderText'
 import PrimaryButton from './PrimaryButton'
 import Road from './Road'
 import Sun from './Sun'
+import Textarea from './Textarea'
 
-export { BodyText, Box, Car, HeaderText, PrimaryButton, Road, Sun }
+export { BodyText, Box, Car, HeaderText, PrimaryButton, Road, Sun, Textarea }

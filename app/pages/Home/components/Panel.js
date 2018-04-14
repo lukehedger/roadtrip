@@ -36,7 +36,7 @@ const Panel = ({ gift, onContributeClick, onNextClick, onPrevClick }) => (
 
         <PrimaryButton
           margin={['32px', 'auto', '16px']}
-          onClick={() => onContributeClick(gift._id)}
+          onClick={() => onContributeClick()}
         >
           <BodyText>Contribute</BodyText>
         </PrimaryButton>
