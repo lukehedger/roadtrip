@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Image, Section } from 'jaak-primitives'
+import { Button, Image, Position, Section } from 'jaak-primitives'
 import { BodyText, HeaderText, PrimaryButton } from 'core/primitives'
 
 const Panel = ({ gift, onContributeClick, onNextClick, onPrevClick }) => (
@@ -14,7 +14,7 @@ const Panel = ({ gift, onContributeClick, onNextClick, onPrevClick }) => (
     }}
   >
     {gift && (
-      <Section>
+      <Position position="relative" size={['100%', 'auto']}>
         <Image
           backgroundPosition="center"
           backgroundSize="cover"
@@ -41,20 +41,26 @@ const Panel = ({ gift, onContributeClick, onNextClick, onPrevClick }) => (
           <BodyText>Contribute</BodyText>
         </PrimaryButton>
 
-        <Button
-          backgroundColor="transparent"
-          onClick={() => onPrevClick(gift.order)}
-        >
-          <BodyText>Prev</BodyText>
-        </Button>
+        <Position position="absolute" bottom="62px" left={0}>
+          <Button
+            backgroundColor="transparent"
+            padding={['8px']}
+            onClick={() => onPrevClick(gift.order)}
+          >
+            <BodyText>&larr; Prev</BodyText>
+          </Button>
+        </Position>
 
-        <Button
-          backgroundColor="transparent"
-          onClick={() => onNextClick(gift.order)}
-        >
-          <BodyText>Next</BodyText>
-        </Button>
-      </Section>
+        <Position position="absolute" bottom="62px" right={0}>
+          <Button
+            backgroundColor="transparent"
+            padding={['8px']}
+            onClick={() => onNextClick(gift.order)}
+          >
+            <BodyText>Next &rarr;</BodyText>
+          </Button>
+        </Position>
+      </Position>
     )}
   </Section>
 )
