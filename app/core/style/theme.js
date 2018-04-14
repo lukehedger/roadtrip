@@ -10,6 +10,7 @@ const customTheme = {
     blue: '#3C8DE3',
     green: '#12825C',
     grey: '#767C91',
+    ltyellow: '#F7F3E9',
     orange: '#E57453',
     peach: '#F9CDB1',
     primary: '#000000',

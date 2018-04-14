@@ -27,7 +27,7 @@ const PrimaryButton = styled(Button)`
  * @desc Primitive's default properties
  */
 PrimaryButton.defaultProps = {
-  backgroundColor: 'yellow',
+  backgroundColor: 'ltyellow',
   borderColor: 'primary',
   borderWidth: ['1px'],
   padding: ['16px', '32px'],

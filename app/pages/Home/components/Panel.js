@@ -4,7 +4,7 @@ import { BodyText, HeaderText, PrimaryButton } from 'core/primitives'
 
 const Panel = ({ gift, onContributeClick, onNextClick, onPrevClick }) => (
   <Section
-    backgroundColor="yellow"
+    backgroundColor="ltyellow"
     margin={['62px', 0, 0]}
     padding={['32px']}
     size={['100vh', '100%']}
