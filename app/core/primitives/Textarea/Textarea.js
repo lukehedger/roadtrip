@@ -27,6 +27,7 @@ const Textarea = styled.textarea`
  * @desc Primitive's default properties
  */
 Textarea.defaultProps = {
+  borderColor: 'primary',
   borderStyle: 'solid',
   borderWidth: ['1px'],
   cursor: 'initial',

@@ -44,7 +44,8 @@ export const configureStore = (state = persistState) => {
   store.subscribe(() => {
     WebStorage.setLocalItem(STATE_KEY, {
       gifted: store.getState().get('gifted'),
-      gifts: store.getState().get('gifts'),
+      // gifts: store.getState().get('gifts'),
+      session: store.getState().get('session'),
     })
   })
 

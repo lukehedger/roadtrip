@@ -52,4 +52,6 @@ export const MAP_TILE_LAYER_OPTS = {
     'pk.eyJ1Ijoic2hhbmR5Y2x1YiIsImEiOiJjamRqNGdlMWYwaG92MzJwazBtdnFoMDJ2In0.UU0UwgKichfmNoR4nEwM7Q',
 }
 
+export const MONZO_URL = 'https://monzo.me/lukehedger'
+
 export const STATE_KEY = '@Roadtrip:store'

@@ -1,4 +1,4 @@
-import { Text } from 'jaak-primitives'
+import { Text, types, util } from 'jaak-primitives'
 import styled from 'styled-components'
 
 /**
@@ -6,7 +6,9 @@ import styled from 'styled-components'
  * @desc Primitive styled-component 💅
  * @return {Function} React component
  */
-const BodyText = styled(Text)``
+const BodyText = styled(Text)`
+  ${util.link};
+`
 
 /**
  * @name defaultProps
@@ -23,7 +25,9 @@ BodyText.defaultProps = {
  * @memberof BodyText
  * @desc Primitive's prop type definitions
  */
-BodyText.propTypes = {}
+BodyText.propTypes = {
+  ...types.link,
+}
 
 /** @component */
 export default BodyText

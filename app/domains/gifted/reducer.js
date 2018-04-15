@@ -7,7 +7,7 @@ import * as model from './model'
 
 const createGifted = gifted => {
   return {
-    [gifted._id]: model.giftedFactory(gifted),
+    [gifted.gift]: model.giftedFactory(gifted),
   }
 }
 

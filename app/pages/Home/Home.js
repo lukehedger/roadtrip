@@ -15,6 +15,7 @@ import {
   MAP_ROUTE_DRAW_DELAY,
   MAP_TILE_LAYER_OPTS,
   MAP_TILE_LAYER_URL,
+  MONZO_URL,
 } from 'core/constants'
 import { routes } from 'core/routes'
 import { map as mapUtil } from 'core/util'
@@ -26,32 +27,60 @@ import {
   actions as GiftsActions,
   selectors as GiftsSelectors,
 } from 'domains/gifts'
+import {
+  actions as SessionActions,
+  selectors as SessionSelectors,
+} from 'domains/session'
 import { actions as UIActions, selectors as UISelectors } from 'domains/ui'
 import * as Components from './components'
 
 class Home extends Component {
   componentDidMount() {
-    const { actions } = this.props
+    const { actions, routeParams, sortedGifts } = this.props
 
-    // TODO: If `gifts` have already been fetched, just `initMap(sortedGifts)` instead
+    // if gifts already fetched, init map and draw route
+    if (sortedGifts.length > 0) {
+      this.initMap()
+
+      return this.drawRoute(sortedGifts)
+    }
+
+    // if viewing a gift, close intro
+    if (routeParams.gift) {
+      this.onIntroCloseClick()
+    }
 
     // fetch the gift list
     return actions.readGifts()
   }
 
   componentDidUpdate(prevProps) {
-    const { isLoading, selectedGift, selectedGiftId, sortedGifts } = this.props
     const {
+      isInitialVisit,
+      isLoading,
+      selectedGift,
+      selectedGiftId,
+      sortedGifts,
+    } = this.props
+    const {
+      isInitialVisit: prevIsInitialVisit,
       isLoading: prevIsLoading,
       selectedGiftId: prevSelectedGiftId,
     } = prevProps
 
-    console.log(selectedGiftId)
-
     // check if app has finished loading
     if (!isLoading && isLoading !== prevIsLoading) {
       // initialise the map
-      this.initMap(sortedGifts)
+      this.initMap()
+    }
+
+    // check if app has finished loading and intro has been displayed
+    if (
+      (!isInitialVisit && !isLoading && isLoading !== prevIsLoading) ||
+      (!isInitialVisit && isInitialVisit !== prevIsInitialVisit)
+    ) {
+      // draw route
+      this.drawRoute(sortedGifts)
     }
 
     // check if `selectedGiftId` has changed
@@ -83,7 +112,18 @@ class Home extends Component {
     }
   }
 
-  initMap = gifts => {
+  drawRoute = gifts => {
+    // if map not init, wait
+    if (!this.map) return
+
+    // generate route
+    const route = mapUtil.generateMapRoute(gifts, this.onMarkerClick)
+
+    // draw route after delay
+    setTimeout(() => route.addTo(this.map).snakeIn(), MAP_ROUTE_DRAW_DELAY)
+  }
+
+  initMap = () => {
     // create map
     this.map = L.map('map', MAP_OPTS)
 
@@ -93,12 +133,6 @@ class Home extends Component {
     // add map events
     this.map.on('dragstart', this.onMapDragStart)
     this.map.on('dragend', this.onMapDragEnd)
-
-    // generate route
-    const route = mapUtil.generateMapRoute(gifts, this.onMarkerClick)
-
-    // draw route after delay
-    setTimeout(() => route.addTo(this.map).snakeIn(), MAP_ROUTE_DRAW_DELAY)
   }
 
   onContributeClick = () => {
@@ -106,13 +140,6 @@ class Home extends Component {
     const { location } = this.props
 
     return router.push({ pathname: location.pathname, search: '?gift=true' })
-  }
-
-  onFormCloseClick = () => {
-    const { router } = this.context
-    const { location } = this.props
-
-    return router.push({ pathname: location.pathname, search: '' })
   }
 
   onGiftPrevClick = index => {
@@ -131,6 +158,12 @@ class Home extends Component {
     return this.redirectToGift(sortedGifts[nextIndex]._id)
   }
 
+  onIntroCloseClick = () => {
+    const { actions } = this.props
+
+    return actions.setIsInitialVisit(false)
+  }
+
   onMapDragStart = () => {
     this.setMapIsDragging(true)
 
@@ -144,6 +177,23 @@ class Home extends Component {
 
   onMarkerClick = id => {
     return this.redirectToGift(id)
+  }
+
+  onPostcardCloseClick = () => {
+    const { router } = this.context
+    const { location } = this.props
+
+    return router.push({ pathname: location.pathname, search: '' })
+  }
+
+  onPostcardPostClick = (amount, from, gift, message, image = null) => {
+    const { actions } = this.props
+
+    // add gifted to database
+    actions.createGifted({ amount, from, gift, image, message })
+
+    // load Monzo
+    return window.open(`${MONZO_URL}/${amount}/billing?d=${message}`, '_blank')
   }
 
   redirectToGift = (id = '') => {
@@ -167,7 +217,14 @@ class Home extends Component {
   }
 
   render() {
-    const { isFormOpen, isLoading, isSidePanelOpen, selectedGift } = this.props
+    const {
+      isFormOpen,
+      isInitialVisit,
+      isLoading,
+      isSidePanelOpen,
+      selectedGift,
+      selectedGiftId,
+    } = this.props
 
     return (
       <Position position="relative" size={['100%']} zIndex={2}>
@@ -198,8 +255,17 @@ class Home extends Component {
         </Position>
 
         {!isLoading &&
+          isInitialVisit && (
+            <Components.Intro onCloseClick={this.onIntroCloseClick} />
+          )}
+
+        {!isLoading &&
           isFormOpen && (
-            <Components.Postcard onCloseClick={this.onFormCloseClick} />
+            <Components.Postcard
+              gift={selectedGiftId}
+              onCloseClick={this.onPostcardCloseClick}
+              onPostClick={this.onPostcardPostClick}
+            />
           )}
       </Position>
     )
@@ -214,6 +280,7 @@ export default connect(
   createStructuredSelector({
     gifted: GiftedSelectors.gifted,
     isFormOpen: UISelectors.isFormOpen,
+    isInitialVisit: SessionSelectors.isInitialVisit,
     isLoading: UISelectors.isLoading,
     isSidePanelOpen: UISelectors.isSidePanelOpen,
     selectedGift: UISelectors.selectedGift,
@@ -222,7 +289,7 @@ export default connect(
   }),
   dispatch => ({
     actions: bindActionCreators(
-      { ...GiftedActions, ...GiftsActions, ...UIActions },
+      { ...GiftedActions, ...GiftsActions, ...SessionActions, ...UIActions },
       dispatch
     ),
   })
