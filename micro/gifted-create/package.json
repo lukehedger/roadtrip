@@ -1,10 +1,10 @@
 {
-  "name": "roadtrip-gifts-read",
+  "name": "roadtrip-gifted-create",
   "version": "1.0.0",
   "description": "Roadtrip gifted create microservice",
   "main": "index.js",
   "engines": {
-    "node": "8.9.1",
+    "node": "8.11.1",
     "npm": "5.5.1"
   },
   "scripts": {

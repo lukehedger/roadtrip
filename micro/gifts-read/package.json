@@ -4,7 +4,7 @@
   "description": "Roadtrip gifts read microservice",
   "main": "index.js",
   "engines": {
-    "node": "8.9.1",
+    "node": "8.11.1",
     "npm": "5.5.1"
   },
   "scripts": {
