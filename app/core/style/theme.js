@@ -13,6 +13,7 @@ const customTheme = {
     ltyellow: '#F7F3E9',
     orange: '#E57453',
     peach: '#F9CDB1',
+    pink: '#F479B7',
     primary: '#000000',
     red: '#D14545',
     yellow: '#F0E9D8',

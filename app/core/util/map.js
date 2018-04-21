@@ -34,7 +34,7 @@ const createPolyline = (coords, nextCoords) =>
  * @param  {Object} gifts Gifts to plot on route
  * @return {Object}
  */
-export const generateMapRoute = (gifts, onClick) => {
+export const generateMapRoute = (gifts, onClick, steps) => {
   const end = gifts.length - 1
 
   const mapRoute = gifts.map(({ _id, coords }, i) => {
@@ -46,7 +46,9 @@ export const generateMapRoute = (gifts, onClick) => {
 
     // polyline to next marker
     if (i < end) {
-      group.push(createPolyline(coords, gifts[i + 1].coords))
+      steps[i].map(step => {
+        group.push(createPolyline(step.start, step.end))
+      })
     }
 
     return group

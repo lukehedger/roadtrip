@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Button, Image, Position, Section } from 'jaak-primitives'
 import { BodyText, HeaderText, PrimaryButton } from 'core/primitives'
 
@@ -38,24 +38,28 @@ const Panel = ({
           {gift.title}
         </HeaderText>
 
+        <BodyText lineHeight="1.3">{gift.description}</BodyText>
+
+        {!isSelectedGiftGifted && (
+          <Fragment>
+            <BodyText color="orange" margin={['16px', 0, 0]}>
+              Total Cost: ${gift.value}
+            </BodyText>
+
+            <PrimaryButton
+              margin={['32px', 'auto', '16px']}
+              onClick={() => onContributeClick()}
+            >
+              <BodyText>Contribute</BodyText>
+            </PrimaryButton>
+          </Fragment>
+        )}
+
         {isSelectedGiftGifted && (
-          <BodyText color="green" margin={[0, 0, '16px']}>
+          <BodyText color="pink" margin={['32px', 0, 0]} textAlign="center">
             Thanks for contributing to this gift!
           </BodyText>
         )}
-
-        <BodyText lineHeight="1.3">{gift.description}</BodyText>
-
-        <BodyText color="orange" margin={['16px', 0, 0]}>
-          Suggested contribution: ${gift.value}
-        </BodyText>
-
-        <PrimaryButton
-          margin={['32px', 'auto', '16px']}
-          onClick={() => onContributeClick()}
-        >
-          <BodyText>Contribute</BodyText>
-        </PrimaryButton>
 
         <Position position="absolute" bottom="62px" left={0}>
           <Button

@@ -1,6 +1,7 @@
-import { ERRORS } from './errors'
+import ERRORS from './errors'
+import STEPS from './steps'
 
-export { ERRORS }
+export { ERRORS, STEPS }
 
 export const { NODE_ENV } = process.env
 
@@ -56,6 +57,11 @@ export const MAP_TILE_LAYER_OPTS = {
     'pk.eyJ1Ijoic2hhbmR5Y2x1YiIsImEiOiJjamRqNGdlMWYwaG92MzJwazBtdnFoMDJ2In0.UU0UwgKichfmNoR4nEwM7Q',
 }
 
-export const MONZO_URL = 'https://monzo.me/lukehedger'
+export const MIXPANEL_TOKEN = '866c7461f4d27f77e05abda37b5979f7'
+
+export const MONZO_URL = 'https://monzo.me/gabrielleelfer'
+
+export const SENTRY_DATA_SOURCE_NAME =
+  'https://5198c708424a46f982c67739c09878ef@sentry.io/1193562'
 
 export const STATE_KEY = '@Roadtrip:store'

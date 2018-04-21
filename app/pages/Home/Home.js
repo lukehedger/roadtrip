@@ -16,9 +16,10 @@ import {
   MAP_TILE_LAYER_OPTS,
   MAP_TILE_LAYER_URL,
   MONZO_URL,
+  STEPS,
 } from 'core/constants'
 import { routes } from 'core/routes'
-import { map as mapUtil } from 'core/util'
+import { map as mapUtil, track } from 'core/util'
 import { actions as GiftedActions } from 'domains/gifted'
 import {
   actions as GiftsActions,
@@ -39,7 +40,7 @@ class Home extends Component {
     if (sortedGifts.length > 0) {
       this.initMap()
 
-      return this.drawRoute(sortedGifts)
+      return this.drawRoute(sortedGifts, STEPS)
     }
 
     // if viewing a gift, close intro
@@ -77,7 +78,7 @@ class Home extends Component {
       (!isInitialVisit && isInitialVisit !== prevIsInitialVisit)
     ) {
       // draw route
-      this.drawRoute(sortedGifts)
+      this.drawRoute(sortedGifts, STEPS)
     }
 
     // check if `selectedGiftId` has changed
@@ -109,12 +110,12 @@ class Home extends Component {
     }
   }
 
-  drawRoute = gifts => {
+  drawRoute = (gifts, steps) => {
     // if map not init, wait
     if (!this.map) return
 
     // generate route
-    const route = mapUtil.generateMapRoute(gifts, this.onMarkerClick)
+    const route = mapUtil.generateMapRoute(gifts, this.onMarkerClick, steps)
 
     // draw route after delay
     setTimeout(() => route.addTo(this.map).snakeIn(), MAP_ROUTE_DRAW_DELAY)
@@ -134,7 +135,9 @@ class Home extends Component {
 
   onContributeClick = () => {
     const { router } = this.context
-    const { location } = this.props
+    const { location, selectedGiftId } = this.props
+
+    track.track('contribute', { gift: selectedGiftId })
 
     return router.push({ pathname: location.pathname, search: '?gift=true' })
   }
@@ -162,10 +165,12 @@ class Home extends Component {
   }
 
   onMapDragStart = () => {
+    const { selectedGiftId } = this.props
+
     this.setMapIsDragging(true)
 
     // remove selected gift from route
-    return this.redirectToGift()
+    if (selectedGiftId) this.redirectToGift()
   }
 
   onMapDragEnd = () => {
@@ -173,6 +178,8 @@ class Home extends Component {
   }
 
   onMarkerClick = id => {
+    track.track('gift', { gift: id })
+
     return this.redirectToGift(id)
   }
 

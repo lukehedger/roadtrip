@@ -1,7 +1,8 @@
 import { NODE_ENV } from 'core/constants'
 import * as map from './map'
+import * as track from './track'
 
-export { map }
+export { map, track }
 
 /**
  * Check for development mode
