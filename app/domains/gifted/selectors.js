@@ -6,7 +6,7 @@ import { name } from './constants'
  * @param  {Object} state Redux store
  * @return {Object}       Domain state
  */
-const getAll = state => state.get(name).toJS()
+const getAll = state => state.get(name)
 
 export default {
   gifted: getAll,

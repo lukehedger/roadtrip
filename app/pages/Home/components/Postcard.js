@@ -106,7 +106,7 @@ const Postcard = ({
               onChange={({ target: { value } }) => setMessage(value)}
               margin={['56px', '32px', '16px']}
               padding={['16px']}
-              placeholder="THIS SPACE FOR WRITING MESSAGES"
+              placeholder="This space for writing messages"
               size={['164px', '100%']}
               textAlign="center"
               value={message}
@@ -118,7 +118,7 @@ const Postcard = ({
               onChange={({ target: { value } }) => setAmount(value)}
               margin={[0, '32px', '16px']}
               padding={['16px']}
-              placeholder="AMOUNT"
+              placeholder="Amount"
               size={['auto', '100%']}
               textAlign="center"
               type="number"
@@ -131,7 +131,7 @@ const Postcard = ({
               margin={[0, '32px', 0]}
               onChange={({ target: { value } }) => setFrom(value)}
               padding={['16px']}
-              placeholder="FROM"
+              placeholder="From"
               size={['auto', '100%']}
               textAlign="center"
               value={from}

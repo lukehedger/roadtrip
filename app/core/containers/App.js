@@ -6,7 +6,7 @@ import { createStructuredSelector } from 'reselect'
 import { ThemeProvider } from 'styled-components'
 
 import { Fade, Loader } from 'core/components'
-import { BodyText, Box as BorderBox, HeaderText } from 'core/primitives'
+import { BodyText, Box as BorderBox, Error, HeaderText } from 'core/primitives'
 import { theme as customTheme } from 'core/style'
 import { selectors as UISelectors } from 'domains/ui'
 
@@ -18,7 +18,7 @@ class App extends Component {
   }
 
   render() {
-    const { children, error, isLoading, isRequesting } = this.props
+    const { children, error, isLoading } = this.props
 
     return (
       <ThemeProvider theme={theme(customTheme)}>
@@ -62,9 +62,7 @@ class App extends Component {
                   )}
 
                   <Box flex="none" size={['auto', '100%']}>
-                    {isRequesting && <div>Loading</div>}
-
-                    {error && <div>{error.message}</div>}
+                    {error && <Error>{error.message}</Error>}
                   </Box>
                 </Box>
               </Position>
@@ -98,6 +96,5 @@ export default connect(
   createStructuredSelector({
     error: UISelectors.error,
     isLoading: UISelectors.isLoading,
-    isRequesting: UISelectors.isRequesting,
   })
 )(App)

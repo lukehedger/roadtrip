@@ -1,6 +1,7 @@
 import BodyText from './BodyText'
 import Box from './Box'
 import Car from './Car'
+import Error from './Error'
 import HeaderText from './HeaderText'
 import PostcardBox from './PostcardBox'
 import PrimaryButton from './PrimaryButton'
@@ -12,6 +13,7 @@ export {
   BodyText,
   Box,
   Car,
+  Error,
   HeaderText,
   PostcardBox,
   PrimaryButton,

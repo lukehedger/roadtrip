@@ -3,13 +3,14 @@ import { createConnectedRouter, createRender, resolver } from 'found'
 import { Provider } from 'react-redux'
 
 import { configureStore } from 'core/store'
+import NotFound from './NotFound'
 
 const Router = createConnectedRouter({
   getFound: store => store.get('found'),
   render: createRender({
-    renderError: ({ error }) => {
+    renderError: () => {
       // eslint-disable-line react/display-name
-      return <div>{error.status === 404 ? 'Not Found' : 'Error'}</div>
+      return <NotFound />
     },
   }),
 })

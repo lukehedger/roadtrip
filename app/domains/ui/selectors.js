@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect'
 
+import { selectors as Gifted } from 'domains/gifted'
 import { selectors as Gifts } from 'domains/gifts'
 import { name } from './constants'
 
@@ -83,11 +84,24 @@ const getSelectedGift = createSelector(
   }
 )
 
+/**
+ * Get selected gift gifted status
+ *
+ * @return {Object}
+ */
+const getIsSelectedGiftGifted = createSelector(
+  [getSelectedGiftId, Gifted.gifted],
+  (id, gifted) => {
+    return gifted && gifted.has(id)
+  }
+)
+
 export default {
   error: getError,
   isFormOpen: getIsFormOpen,
   isLoading: getIsLoading,
   isRequesting: getIsRequesting,
+  isSelectedGiftGifted: getIsSelectedGiftGifted,
   isSidePanelOpen: getIsSidePanelOpen,
   selectedGift: getSelectedGift,
   selectedGiftId: getSelectedGiftId,

@@ -19,10 +19,7 @@ import {
 } from 'core/constants'
 import { routes } from 'core/routes'
 import { map as mapUtil } from 'core/util'
-import {
-  actions as GiftedActions,
-  selectors as GiftedSelectors,
-} from 'domains/gifted'
+import { actions as GiftedActions } from 'domains/gifted'
 import {
   actions as GiftsActions,
   selectors as GiftsSelectors,
@@ -187,13 +184,17 @@ class Home extends Component {
   }
 
   onPostcardPostClick = (amount, from, gift, message, image = null) => {
-    const { actions } = this.props
+    const { router } = this.context
+    const { actions, location } = this.props
 
     // add gifted to database
     actions.createGifted({ amount, from, gift, image, message })
 
     // load Monzo
-    return window.open(`${MONZO_URL}/${amount}/billing?d=${message}`, '_blank')
+    window.open(`${MONZO_URL}/${amount}/billing?d=${message}`, '_blank')
+
+    // Close Postcard
+    return router.push({ pathname: location.pathname, search: '' })
   }
 
   redirectToGift = (id = '') => {
@@ -221,6 +222,7 @@ class Home extends Component {
       isFormOpen,
       isInitialVisit,
       isLoading,
+      isSelectedGiftGifted,
       isSidePanelOpen,
       selectedGift,
       selectedGiftId,
@@ -250,6 +252,7 @@ class Home extends Component {
               onContributeClick={this.onContributeClick}
               onNextClick={this.onGiftNextClick}
               onPrevClick={this.onGiftPrevClick}
+              isSelectedGiftGifted={isSelectedGiftGifted}
             />
           </Slide>
         </Position>
@@ -278,10 +281,10 @@ Home.contextTypes = {
 
 export default connect(
   createStructuredSelector({
-    gifted: GiftedSelectors.gifted,
     isFormOpen: UISelectors.isFormOpen,
     isInitialVisit: SessionSelectors.isInitialVisit,
     isLoading: UISelectors.isLoading,
+    isSelectedGiftGifted: UISelectors.isSelectedGiftGifted,
     isSidePanelOpen: UISelectors.isSidePanelOpen,
     selectedGift: UISelectors.selectedGift,
     selectedGiftId: UISelectors.selectedGiftId,

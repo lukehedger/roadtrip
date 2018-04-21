@@ -17,7 +17,7 @@ injectGlobal`
   html, body, #Root {
     height: 100%;
     min-height: 100%;
-    font-family: helvetica, sans-serif;
+    font-family: 'Vidaloka', serif;
     background-color: ${theme.palette.yellow};
   }
 
@@ -30,8 +30,8 @@ injectGlobal`
   }
 
   a {
-    color: ${theme.palette.green};
-    text-decoration: none;
+    color: ${theme.palette.blue};
+    text-decoration: underline;
   }
 
   #map {
@@ -45,4 +45,10 @@ injectGlobal`
     opacity: 0;
 		animation: ${animation.fadeIn} 0.3s cubic-bezier(0,0,.25,1) 1 forwards;
 	}
+
+  input[type=number]::-webkit-inner-spin-button, 
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 `

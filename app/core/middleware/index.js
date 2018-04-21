@@ -2,10 +2,11 @@ import { createLogger } from 'redux-logger'
 import { middleware as reduxPack } from 'redux-pack'
 
 import GiftsMiddleware from './gifts'
+import UIMiddleware from './ui'
 
 const createMiddleware = isDevelopment => {
   // default middleware
-  const middleware = [reduxPack, GiftsMiddleware]
+  const middleware = [reduxPack, GiftsMiddleware, UIMiddleware]
 
   // logger middleware in development
   if (isDevelopment) middleware.push(createLogger({ collapsed: true }))

@@ -1,3 +1,7 @@
+import { ERRORS } from './errors'
+
+export { ERRORS }
+
 export const { NODE_ENV } = process.env
 
 const API_CONFIG = {

@@ -2,7 +2,13 @@ import React from 'react'
 import { Button, Image, Position, Section } from 'jaak-primitives'
 import { BodyText, HeaderText, PrimaryButton } from 'core/primitives'
 
-const Panel = ({ gift, onContributeClick, onNextClick, onPrevClick }) => (
+const Panel = ({
+  gift,
+  isSelectedGiftGifted,
+  onContributeClick,
+  onNextClick,
+  onPrevClick,
+}) => (
   <Section
     backgroundColor="ltyellow"
     margin={['62px', 0, 0]}
@@ -32,7 +38,17 @@ const Panel = ({ gift, onContributeClick, onNextClick, onPrevClick }) => (
           {gift.title}
         </HeaderText>
 
+        {isSelectedGiftGifted && (
+          <BodyText color="green" margin={[0, 0, '16px']}>
+            Thanks for contributing to this gift!
+          </BodyText>
+        )}
+
         <BodyText lineHeight="1.3">{gift.description}</BodyText>
+
+        <BodyText color="orange" margin={['16px', 0, 0]}>
+          Suggested contribution: ${gift.value}
+        </BodyText>
 
         <PrimaryButton
           margin={['32px', 'auto', '16px']}
