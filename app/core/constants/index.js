@@ -24,6 +24,10 @@ export const APP_LOAD_DELAY = 2500
 
 export const MAP_ROUTE_DRAW_DELAY = 1000
 
+export const MAP_CLUSTER_COLOUR = '#12825C'
+
+export const MAP_DEFAULT_ZOOM = 7
+
 export const MAP_ICON_OPTS = {
   iconUrl: '/img/map-icon.svg',
   iconSize: [48, 60],
@@ -36,9 +40,9 @@ export const MAP_OFFSET_X = 100
 export const MAP_OFFSET_Y = 0
 
 export const MAP_OPTS = {
-  center: [36.295117, -119.699698],
+  center: [36.628233, -120.515471],
   // maxBounds: [[ 51.28, -0.489 ], [ 51.686, 0.236 ]],
-  zoom: 7,
+  zoom: MAP_DEFAULT_ZOOM,
   zoomControl: false,
 }
 

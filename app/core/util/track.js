@@ -7,5 +7,5 @@ export const init = () =>
   mixpanel.init(MIXPANEL_TOKEN, { debug: isDevelopment })
 
 export const track = (action, payload) => {
-  return mixpanel.track(action, payload)
+  return !isDevelopment && mixpanel.track(action, payload)
 }

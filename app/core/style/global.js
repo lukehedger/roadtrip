@@ -41,12 +41,16 @@ injectGlobal`
     z-index: 0;
   }
 
+  .leaflet-container {
+    background: ${theme.palette.yellow};
+  }
+
   .map-icon {
     opacity: 0;
 		animation: ${animation.fadeIn} 0.3s cubic-bezier(0,0,.25,1) 1 forwards;
 	}
 
-  input[type=number]::-webkit-inner-spin-button, 
+  input[type=number]::-webkit-inner-spin-button,
   input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;

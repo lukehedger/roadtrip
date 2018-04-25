@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Position } from 'jaak-primitives'
 import L from 'leaflet'
+import 'leaflet.markercluster'
 import 'leaflet.polyline.snakeanim'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
@@ -9,6 +10,7 @@ import { createStructuredSelector } from 'reselect'
 
 import { Slide } from 'core/components'
 import {
+  MAP_DEFAULT_ZOOM,
   MAP_OFFSET_X,
   MAP_OFFSET_Y,
   MAP_OPTS,
@@ -87,7 +89,7 @@ class Home extends Component {
       selectedGiftId !== prevSelectedGiftId
     ) {
       // center map to selected gift
-      this.setMapCenter(selectedGift.coords, { animate: true }, [
+      this.setMapCenter(selectedGift.coords, 14, { animate: true }, [
         MAP_OFFSET_X,
         MAP_OFFSET_Y,
       ])
@@ -102,10 +104,12 @@ class Home extends Component {
 
       // if map is not being dragged, reset map center to remove panel offset
       if (!this.map.isDragging) {
-        this.setMapCenter([center.lat, center.lng], { animate: true }, [
-          -MAP_OFFSET_X,
-          -MAP_OFFSET_Y,
-        ])
+        this.setMapCenter(
+          [center.lat, center.lng],
+          MAP_DEFAULT_ZOOM,
+          { animate: true },
+          [-MAP_OFFSET_X, -MAP_OFFSET_Y]
+        )
       }
     }
   }
@@ -114,11 +118,18 @@ class Home extends Component {
     // if map not init, wait
     if (!this.map) return
 
-    // generate route
-    const route = mapUtil.generateMapRoute(gifts, this.onMarkerClick, steps)
+    // generate markers
+    const markers = mapUtil.generateMapMarkers(gifts, this.onMarkerClick)
 
-    // draw route after delay
-    setTimeout(() => route.addTo(this.map).snakeIn(), MAP_ROUTE_DRAW_DELAY)
+    // generate route
+    const route = mapUtil.generateMapRoute(steps)
+
+    // draw route and plot markers after delay
+    setTimeout(() => {
+      markers.addTo(this.map)
+
+      route.addTo(this.map)
+    }, MAP_ROUTE_DRAW_DELAY)
   }
 
   initMap = () => {
@@ -210,14 +221,14 @@ class Home extends Component {
     return router.push(`${routes.home.path}${id}`)
   }
 
-  setMapCenter = ([lat, lng], options = {}, offset = null) => {
+  setMapCenter = ([lat, lng], zoom, options = {}, offset = null) => {
     let center = { lat, lng }
 
     if (offset) {
       center = this.map.unproject(this.map.project(center).add(offset))
     }
 
-    this.map.panTo(center, options)
+    this.map.flyTo(center, zoom, options)
   }
 
   setMapIsDragging = isDragging => {

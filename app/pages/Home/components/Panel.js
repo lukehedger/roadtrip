@@ -26,8 +26,8 @@ const Panel = ({
           backgroundSize="cover"
           borderRadius="50%"
           margin={[0, 'auto']}
-          size={['100px']}
-          src={gift.image}
+          size={['150px']}
+          src={`/img/gifts/${gift.image}`}
         />
 
         <HeaderText
@@ -38,12 +38,17 @@ const Panel = ({
           {gift.title}
         </HeaderText>
 
-        <BodyText lineHeight="1.3">{gift.description}</BodyText>
+        <BodyText
+          lineHeight="1.3"
+          style={{ maxHeight: '100px', minHeight: '100px', overflow: 'scroll' }}
+        >
+          {gift.description}
+        </BodyText>
 
         {!isSelectedGiftGifted && (
           <Fragment>
             <BodyText color="orange" margin={['16px', 0, 0]}>
-              Total Cost: ${gift.value}
+              Total Cost: £{gift.value}
             </BodyText>
 
             <PrimaryButton

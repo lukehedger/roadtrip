@@ -1,6 +1,7 @@
 import L from 'leaflet'
 
 import {
+  MAP_CLUSTER_COLOUR,
   MAP_ICON_OPTS,
   MAP_POLYLINE_COLOUR,
   MAP_SNAKING_SPEED,
@@ -16,6 +17,14 @@ import smoosh from './smoosh'
 const createMarker = coords => L.marker(coords, { icon: L.icon(MAP_ICON_OPTS) })
 
 /**
+ * Create a new Leaflet cluster
+ *
+ * @param  {Object} cluster Cluster layer
+ * @return {Object}         Cluster
+ */
+const createCluster = () => L.icon(MAP_ICON_OPTS)
+
+/**
  * Create a new Leaflet polyline
  *
  * @param  {Array}  coords     From [latitude, longitude]
@@ -29,27 +38,44 @@ const createPolyline = (coords, nextCoords) =>
   })
 
 /**
- * Generate Leaflet map route with markers and polyline
+ * Generate Leaflet map markers, with clustering
  *
- * @param  {Object} gifts Gifts to plot on route
+ * @param  {Object}   gifts   Gifts to plot on route
+ * @param  {Function} onClick Marker on click handler
  * @return {Object}
  */
-export const generateMapRoute = (gifts, onClick, steps) => {
-  const end = gifts.length - 1
+export const generateMapMarkers = (gifts, onClick) => {
+  const markerLayer = L.markerClusterGroup({
+    iconCreateFunction: createCluster,
+    polygonOptions: { color: MAP_CLUSTER_COLOUR },
+    showCoverageOnHover: false,
+    // singleMarkerMode: true,
+  })
 
-  const mapRoute = gifts.map(({ _id, coords }, i) => {
+  gifts.map(({ _id, coords }) => {
     const marker = createMarker(coords)
 
     marker.on('click', () => onClick(_id))
 
-    const group = [marker]
+    markerLayer.addLayer(marker)
+  })
 
-    // polyline to next marker
-    if (i < end) {
-      steps[i].map(step => {
-        group.push(createPolyline(step.start, step.end))
-      })
-    }
+  return markerLayer
+}
+
+/**
+ * Generate Leaflet map route with polyline
+ *
+ * @param  {Object} steps Waypoints to plot on route
+ * @return {Object}
+ */
+export const generateMapRoute = steps => {
+  const mapRoute = steps.map(step => {
+    const group = []
+
+    step.map(({ end, start }) => {
+      group.push(createPolyline(start, end))
+    })
 
     return group
   })
