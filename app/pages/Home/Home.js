@@ -81,6 +81,20 @@ class Home extends Component {
     ) {
       // draw route
       this.drawRoute(sortedGifts, STEPS)
+
+      // open first gift, if none open
+      if (typeof selectedGiftId === 'undefined') {
+        this.redirectToGift(sortedGifts[0]._id)
+      }
+
+      // if gift selected on load
+      if (typeof selectedGiftId !== 'undefined') {
+        // center map to selected gift
+        this.setMapCenter(selectedGift.coords, 14, { animate: true }, [
+          MAP_OFFSET_X,
+          MAP_OFFSET_Y,
+        ])
+      }
     }
 
     // check if `selectedGiftId` has changed
@@ -222,10 +236,10 @@ class Home extends Component {
   }
 
   setMapCenter = ([lat, lng], zoom, options = {}, offset = null) => {
-    let center = { lat, lng }
+    const center = { lat, lng }
 
     if (offset) {
-      center = this.map.unproject(this.map.project(center).add(offset))
+      // center = this.map.unproject(this.map.project(center).add(offset))
     }
 
     this.map.flyTo(center, zoom, options)
