@@ -34,7 +34,14 @@ module.exports = {
       sourceMap: true,
     }),
     new CleanPlugin(['./**/*'], PATHS.dist),
-    new CopyPlugin([{ from: PATHS.img, to: 'img' }]),
+    new CopyPlugin([
+      { from: PATHS.img, to: 'img' },
+      {
+        from: path.resolve(PATHS.static, '_redirects'),
+        to: '_redirects',
+        toType: 'file',
+      },
+    ]),
     new HtmlWebpackPlugin({
       favicon: path.resolve(PATHS.static, 'favicon.ico'),
       template: path.resolve(PATHS.static, 'index.html'),
