@@ -33,6 +33,7 @@ const Panel = ({
       {gift && (
         <Position position="relative" size={['100%', 'auto']}>
           <GiftImage
+            backgroundColor="yellow"
             backgroundPosition="center"
             backgroundSize="cover"
             borderRadius="50%"
