@@ -10,7 +10,7 @@
   "scripts": {
     "deploy": "now -e NODE_ENV=production -e MONGO_URL=@mongo-roadtrip-prod && now alias `pbpaste` roadtrip-gifts-read",
     "start": "micro-dev -p 7001",
-    "now-start": "micro -p $PORT"
+    "now-start": "micro"
   },
   "author": "Luke Hedger",
   "license": "MIT",
