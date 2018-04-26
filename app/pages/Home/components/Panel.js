@@ -1,6 +1,11 @@
 import React, { Fragment } from 'react'
-import { Button, Image, Position, Section } from 'jaak-primitives'
-import { BodyText, HeaderText, PrimaryButton } from 'core/primitives'
+import { Button, Position, Section } from 'jaak-primitives'
+import {
+  BodyText,
+  GiftHeaderText,
+  GiftImage,
+  PrimaryButton,
+} from 'core/primitives'
 
 const Panel = ({
   gift,
@@ -21,7 +26,7 @@ const Panel = ({
   >
     {gift && (
       <Position position="relative" size={['100%', 'auto']}>
-        <Image
+        <GiftImage
           backgroundPosition="center"
           backgroundSize="cover"
           borderRadius="50%"
@@ -30,13 +35,13 @@ const Panel = ({
           src={`/img/gifts/${gift.image}`}
         />
 
-        <HeaderText
+        <GiftHeaderText
           fontSize={1}
           margin={['16px', 0, '48px']}
           textAlign="center"
         >
           {gift.title}
-        </HeaderText>
+        </GiftHeaderText>
 
         <BodyText
           lineHeight="1.3"

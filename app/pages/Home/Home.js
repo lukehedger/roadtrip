@@ -20,6 +20,7 @@ import {
   MONZO_URL,
   STEPS,
 } from 'core/constants'
+import { PanelPosition } from 'core/primitives'
 import { routes } from 'core/routes'
 import { map as mapUtil, track } from 'core/util'
 import { actions as GiftedActions } from 'domains/gifted'
@@ -88,7 +89,10 @@ class Home extends Component {
       }
 
       // if gift selected on load
-      if (typeof selectedGiftId !== 'undefined') {
+      if (
+        typeof selectedGiftId !== 'undefined' &&
+        typeof selectedGift !== 'undefined'
+      ) {
         // center map to selected gift
         this.setMapCenter(selectedGift.coords, 14, { animate: true }, [
           MAP_OFFSET_X,
@@ -264,7 +268,7 @@ class Home extends Component {
       <Position position="relative" size={['100%']} zIndex={2}>
         <div id="map" />
 
-        <Position
+        <PanelPosition
           maxWidth="500px"
           minWidth="15em"
           position="fixed"
@@ -287,7 +291,7 @@ class Home extends Component {
               isSelectedGiftGifted={isSelectedGiftGifted}
             />
           </Slide>
-        </Position>
+        </PanelPosition>
 
         {!isLoading &&
           isInitialVisit && (

@@ -1,9 +1,9 @@
 import React from 'react'
-import { Image, Position, Section } from 'jaak-primitives'
-import { BodyText } from 'core/primitives'
+import { Image, Section } from 'jaak-primitives'
+import { BodyText, IntroPosition } from 'core/primitives'
 
 const Intro = ({ onCloseClick }) => (
-  <Position
+  <IntroPosition
     left="50%"
     position="absolute"
     size={['500px', '300px']}
@@ -48,7 +48,7 @@ const Intro = ({ onCloseClick }) => (
         Take a look at the map!
       </BodyText>
     </Section>
-  </Position>
+  </IntroPosition>
 )
 
 export default Intro
