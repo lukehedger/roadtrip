@@ -4,7 +4,6 @@ import {
   MAP_CLUSTER_COLOUR,
   MAP_ICON_OPTS,
   MAP_POLYLINE_COLOUR,
-  MAP_SNAKING_SPEED,
 } from 'core/constants'
 import smoosh from './smoosh'
 
@@ -34,7 +33,6 @@ const createCluster = () => L.icon(MAP_ICON_OPTS)
 const createPolyline = (coords, nextCoords) =>
   L.polyline([coords, nextCoords], {
     color: MAP_POLYLINE_COLOUR,
-    snakingSpeed: MAP_SNAKING_SPEED,
   })
 
 /**

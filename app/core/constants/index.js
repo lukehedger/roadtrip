@@ -48,8 +48,6 @@ export const MAP_OPTS = {
 
 export const MAP_POLYLINE_COLOUR = '#F479B7'
 
-export const MAP_SNAKING_SPEED = 200
-
 export const MAP_TILE_LAYER_URL =
   'https://api.mapbox.com/styles/v1/shandyclub/cjdj4loktivcg2tmodt9q1fe9/tiles/256/{z}/{x}/{y}?access_token={accessToken}'
 
