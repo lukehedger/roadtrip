@@ -14,7 +14,8 @@ const IntroPosition = styled(Position)`
   padding-top: 62px;
 
   ${media.md`
-    width: 300px;
+    width: 320px;
+    max-width: 100%;
     height: 500px;
     padding-top: 0;
   `};

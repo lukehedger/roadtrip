@@ -228,7 +228,7 @@ class Home extends Component {
     // load Monzo
     window.open(`${MONZO_URL}/${amount}/billing?d=${message}`, '_blank')
 
-    // Close Postcard
+    // close Postcard
     return router.push({ pathname: location.pathname, search: '' })
   }
 
@@ -239,17 +239,20 @@ class Home extends Component {
   }
 
   setMapCenter = ([lat, lng], zoom, options = {}, offset = null) => {
+    const currentZoom = this.map.getZoom()
+    const zoomValue = zoom > currentZoom ? zoom : currentZoom
+
     let center = { lat, lng }
 
     if (offset) {
       center = this.map.unproject(
-        this.map.project(center, zoom).add(offset),
-        zoom
+        this.map.project(center, zoomValue).add(offset),
+        zoomValue
       )
     }
 
     // this.map.flyTo(center, zoom, options)
-    this.map.setZoomAround(center, zoom, options)
+    this.map.setZoomAround(center, zoomValue, options)
     this.map.panTo(center, options)
   }
 
