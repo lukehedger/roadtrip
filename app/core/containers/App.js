@@ -26,44 +26,46 @@ class App extends Component {
           <Main>
             <Header>
               <Position position="fixed" size={['auto', '100%']} zIndex={3}>
-                <Box backgroundColor="yellow">
-                  {!isLoading && (
-                    <BorderBox borderColor="grey" borderWidth={[0, 0, '1px']}>
-                      <Box flexDirection="column" padding={['8px']}>
-                        <BodyText fontSize={1} padding={[0, 0, '8px']}>
-                          Gabrielle & Adrian
-                        </BodyText>
+                {!isLoading && (
+                  <BorderBox
+                    backgroundColor="yellow"
+                    borderColor="grey"
+                    borderWidth={[0, 0, '1px']}
+                  >
+                    <Box flexDirection="column" padding={['8px']}>
+                      <BodyText fontSize={1} padding={[0, 0, '8px']}>
+                        Gabrielle & Adrian
+                      </BodyText>
 
-                        <BodyText color="grey">30-06-18</BodyText>
-                      </Box>
+                      <BodyText color="grey">30-06-18</BodyText>
+                    </Box>
 
-                      <BorderBox
-                        align="center"
-                        borderWidth={[0, 0, 0, '1px']}
-                        flex="none"
-                        flexDirection="column"
-                        margin={['8px', 0]}
-                        padding={[0, '8px', 0]}
-                        size={['auto', '130px']}
+                    <BorderBox
+                      align="center"
+                      borderWidth={[0, 0, 0, '1px']}
+                      flex="none"
+                      flexDirection="column"
+                      margin={['8px', 0]}
+                      padding={[0, '8px', 0]}
+                      size={['auto', '130px']}
+                    >
+                      <HeaderText
+                        fontStyle="italic"
+                        padding={[0, 0, '4px']}
+                        textAlign="right"
                       >
-                        <HeaderText
-                          fontStyle="italic"
-                          padding={[0, 0, '4px']}
-                          textAlign="right"
-                        >
-                          California
-                        </HeaderText>
+                        California
+                      </HeaderText>
 
-                        <HeaderText color="grey" textAlign="right">
-                          USA
-                        </HeaderText>
-                      </BorderBox>
+                      <HeaderText color="grey" textAlign="right">
+                        USA
+                      </HeaderText>
                     </BorderBox>
-                  )}
+                  </BorderBox>
+                )}
 
-                  <Box flex="none" size={['auto', '100%']}>
-                    {error && <Error>{error.message}</Error>}
-                  </Box>
+                <Box flex="none" size={['auto', '100%']}>
+                  {error && <Error>{error.message}</Error>}
                 </Box>
               </Position>
             </Header>

@@ -239,13 +239,18 @@ class Home extends Component {
   }
 
   setMapCenter = ([lat, lng], zoom, options = {}, offset = null) => {
-    const center = { lat, lng }
+    let center = { lat, lng }
 
     if (offset) {
-      // center = this.map.unproject(this.map.project(center).add(offset))
+      center = this.map.unproject(
+        this.map.project(center, zoom).add(offset),
+        zoom
+      )
     }
 
-    this.map.flyTo(center, zoom, options)
+    // this.map.flyTo(center, zoom, options)
+    this.map.setZoomAround(center, zoom, options)
+    this.map.panTo(center, options)
   }
 
   setMapIsDragging = isDragging => {

@@ -7,6 +7,7 @@ import { types, util } from 'jaak-primitives'
  * @return {Function} React component
  */
 const Error = styled.div`
+  ${util.background};
   ${util.border};
   ${util.boxModel};
 `
@@ -17,7 +18,8 @@ const Error = styled.div`
  * @desc Primitive's default properties
  */
 Error.defaultProps = {
-  borderColor: 'error',
+  backgroundColor: 'yellow',
+  borderColor: 'primary',
   borderRadius: '4px',
   borderStyle: 'dotted',
   borderWidth: ['2px'],
@@ -32,6 +34,7 @@ Error.defaultProps = {
  * @desc Primitive's prop type definitions
  */
 Error.propTypes = {
+  ...types.backgroundTypes,
   ...types.borderTypes,
   ...types.boxModelTypes,
 }
