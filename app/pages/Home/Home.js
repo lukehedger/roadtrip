@@ -35,6 +35,10 @@ import { actions as UIActions, selectors as UISelectors } from 'domains/ui'
 import * as Components from './components'
 
 class Home extends Component {
+  state = {
+    modalIsOpen: false,
+  }
+
   componentDidMount() {
     const { actions, routeParams, sortedGifts } = this.props
 
@@ -131,6 +135,18 @@ class Home extends Component {
     }
   }
 
+  closeModal = () => {
+    const { router } = this.context
+    const { location } = this.props
+
+    this.setState(() => ({
+      modalIsOpen: false,
+    }))
+
+    // close Postcard
+    return router.push({ pathname: location.pathname, search: '' })
+  }
+
   drawRoute = (gifts, steps) => {
     // if map not init, wait
     if (!this.map) return
@@ -225,6 +241,12 @@ class Home extends Component {
     // add gifted to database
     actions.createGifted({ amount, from, gift, image, message })
 
+    if (amount > 100) {
+      return this.setState(() => ({
+        modalIsOpen: true,
+      }))
+    }
+
     // load Monzo
     window.open(`${MONZO_URL}/${amount}/billing?d=${message}`, '_blank')
 
@@ -313,6 +335,11 @@ class Home extends Component {
               onPostClick={this.onPostcardPostClick}
             />
           )}
+
+        <Components.Modal
+          isOpen={this.state.modalIsOpen}
+          onRequestClose={this.closeModal}
+        />
       </Position>
     )
   }

@@ -1,5 +1,6 @@
 import Intro from './Intro'
+import Modal from './Modal'
 import Panel from './Panel'
 import Postcard from './Postcard'
 
-export { Intro, Panel, Postcard }
+export { Intro, Modal, Panel, Postcard }
