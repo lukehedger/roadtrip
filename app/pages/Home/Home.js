@@ -234,12 +234,14 @@ class Home extends Component {
     return router.push({ pathname: location.pathname, search: '' })
   }
 
-  onPostcardPostClick = (amount, from, gift, message, image = null) => {
+  onPostcardPostClick = (amount, from, gift, message) => {
     const { router } = this.context
     const { actions, location } = this.props
 
+    const created = Math.floor(Date.now() / 1000)
+
     // add gifted to database
-    actions.createGifted({ amount, from, gift, image, message })
+    actions.createGifted({ amount, created, from, gift, message })
 
     if (amount > 100) {
       return this.setState(() => ({

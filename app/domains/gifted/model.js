@@ -8,9 +8,9 @@ import { Record } from 'immutable'
 const Gifted = new Record({
   _id: '',
   amount: 0,
+  created: 0,
   from: '',
   gift: '',
-  image: '',
   message: '',
 })
 
